@@ -4,7 +4,6 @@ const bodyParser = require('koa-bodyparser')
 const mongoose = require('mongoose')
 const config = require('./config')
 
-const app = new koa()
 mongoose.connect(config.mongodb, {useNewUrlParser: true}, (err) => {
   if(err) {
     console.log('mongodb is connected failed')
@@ -13,9 +12,18 @@ mongoose.connect(config.mongodb, {useNewUrlParser: true}, (err) => {
   }
 })
 
-app.use(cors)
-app.use(bodyParser)
+const app = new koa()
+app.use(cors())
+app.use(bodyParser())
 
+const user_router = require('./routes/user_router')
+const example_router = require('./routes/example_router')
+const school_router = require('./routes/school_router')
+const course_router = require('./routes/course_router')
+
+app.use(user_router.routes()).use(user_router.allowedMethods())
+app.use(example_router.routes()).use(example_router.allowedMethods())
+app.use(school_router.routes()).use(school_router.allowedMethods())
+app.use(course_router.routes()).use(course_router.allowedMethods())
 
 app.listen(config.port)
-console.log('app is listening at port ', config.port)
