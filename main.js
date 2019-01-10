@@ -13,7 +13,16 @@ mongoose.connect(config.mongodb, {useNewUrlParser: true}, (err) => {
 })
 
 const app = new koa()
-app.use(cors())
+app.use(cors({
+  origin: function(ctx) {
+    return '*'
+  },
+  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+  maxAge: 5,
+  credentials: true,
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowHeaders: ['Content-Type', 'Authorization', 'Accept']
+}))
 app.use(bodyParser())
 
 const user_router = require('./routes/user_router')
