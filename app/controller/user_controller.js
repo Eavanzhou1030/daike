@@ -26,8 +26,9 @@ const post = async (ctx, next) => {
 
 const login = async (ctx, next) => {
   const req = ctx.request.body
-  
-  const user = User_col.findOne({
+  console.log('req', req.account)
+
+  const user = User_col.find({
     account: req.account
   }, {
     __v: 0,

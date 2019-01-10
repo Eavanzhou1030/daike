@@ -85,6 +85,6 @@ const CourseSchema = new Schema({
   hasReward: {
     type: Boolean
   }
-}, {collation: 'course', versionKey: false})
+}, {collection: 'courses', versionKey: false})
 
-module.exports = mongoose.model('course', CourseSchema)
+module.exports = mongoose.model('courses', CourseSchema)
