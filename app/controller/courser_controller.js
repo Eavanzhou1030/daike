@@ -6,7 +6,7 @@ const formatDate = require('../utils/formatDate')
 const getCourse = async (ctx, next) => {
   const req = ctx.request.body
 
-  const course = Course_col.find({
+  const course = await Course_col.find({
     status: req.status
   }, {
     _id: 0

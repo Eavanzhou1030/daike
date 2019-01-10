@@ -26,9 +26,8 @@ const post = async (ctx, next) => {
 
 const login = async (ctx, next) => {
   const req = ctx.request.body
-  console.log('req', req.account)
 
-  const user = User_col.find({
+  const user = await User_col.findOne({
     account: req.account
   }, {
     __v: 0,
